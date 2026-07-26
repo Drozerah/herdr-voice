@@ -1,0 +1,15 @@
+# Dependencies & Build output
+node_modules/
+dist/
+
+# Environment secrets
+.env
+.env.*
+
+# Temporary files & work directories
+tmp/
+temp/
+ù
+# OS & System logs
+.DS_Store
+*.log
