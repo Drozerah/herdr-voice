@@ -1,6 +1,6 @@
 {
   "name": "herdr-voice",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "Real-time TTS Voice Plugin for Herdr agents",
   "type": "module",
   "main": "dist/index.js",
@@ -11,6 +11,7 @@
     "node": ">=18.11.0"
   },
   "scripts": {
+    "precommit": "npm test",
     "dev": "NODE_ENV=development esbuild src/index.js --bundle --platform=node --target=node18 --outfile=dist/index.js --watch",
     "build": "NODE_ENV=production esbuild src/index.js --bundle --platform=node --target=node18 --minify --outfile=dist/index.js",
     "test": "NODE_ENV=test node --test 'src/**/*.test.js' 'bin/**/*.test.js'",

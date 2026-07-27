@@ -1,20 +1,19 @@
-id = "herdr-voice"
-name = "Herdr Voice Plugin"
-version = "1.0.0"
-min_herdr_version = "0.7.0"
+name = "herdr-voice"
+version = "1.0.0-alpha.1"
 description = "Real-time TTS Voice Plugin for Herdr agents"
-platforms = ["macos"]
+author = "Thomas Gauthier"
 
 [[actions]]
-id = "toggle-voice-proto"
-title = "🔊 Toggle Voice TTS"
-description = "Activer ou désactiver la synthèse vocale pour ce volet Herdr"
-command = ["node", "dist/index.js", "toggle"]
+id = "toggle"
+label = "Voice Toggle"
+shortcut = "Ctrl+v"
+description = "Toggle active pane voice synthesis on/off"
+handler = "dist/index.js:handleToggle"
 
 [[events]]
-on = "pane.agent_status_changed"
-command = ["node", "dist/index.js", "event"]
+name = "pane.agent_status_changed"
+handler = "dist/index.js:onAgentStatusChanged"
 
 [[events]]
-on = "pane.focused"
-command = ["node", "dist/index.js", "event"]
+name = "pane.focused"
+handler = "dist/index.js:onPaneFocused"
