@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 
 ## [Unreleased]
 
-## [1.0.0-alpha.1] - 2026-07-27
-
 ### Added
 - Core engineering & governance foundation for Pure JavaScript Herdr Voice Plugin.
 - Local Mock TTS HTTP Server (`bin/mock-tts-server.js`) supporting `POST /v1/audio/speech` inference requests.
@@ -16,4 +14,5 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Deterministic event-driven server readiness detection (`stdout` Ready Event) and cross-platform `os.tmpdir()` portability.
 - Automated version synchronization unit test suite (`bin/version-sync.test.js`).
 - GitHub Actions CI/CD Pipeline (`.github/workflows/ci.yml`) validating Node.js Active LTS `20.x` & `22.x`.
-- Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/001_ADR.md` -> `docs/adr/010_ADR.md`).
+- Official MIT License file (`LICENSE`) and Architecture Decision Record (`docs/adr/011_ADR.md`).
+- Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/001_ADR.md` -> `docs/adr/011_ADR.md`).

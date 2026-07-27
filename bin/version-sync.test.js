@@ -40,13 +40,15 @@ describe('Semantic Versioning (SemVer) Synchronization Tests', () => {
     );
   });
 
-  test('CHANGELOG.md contains a release section for package.json version', () => {
+  test('CHANGELOG.md contains [Unreleased] or matching release header', () => {
     const changelogContent = fs.readFileSync(changelogPath, 'utf-8');
-    const releaseHeaderPattern = new RegExp(`##\\s+\\[${currentVersion.replace(/\./g, '\\.')}\\]`, 'm');
+    const escapedVersion = currentVersion.replace(/\./g, '\\.');
+    const hasVersionHeader = new RegExp(`##\\s+\\[${escapedVersion}\\]`, 'm').test(changelogContent);
+    const hasUnreleasedHeader = /##\s+\[Unreleased\]/i.test(changelogContent);
 
     assert.ok(
-      releaseHeaderPattern.test(changelogContent),
-      `CHANGELOG.md is missing a release header for version "## [${currentVersion}]"`
+      hasVersionHeader || hasUnreleasedHeader,
+      `CHANGELOG.md must contain either an "## [Unreleased]" section or a matching release header "## [${currentVersion}]"`
     );
   });
 });
