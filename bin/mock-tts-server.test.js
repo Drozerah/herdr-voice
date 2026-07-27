@@ -1,6 +1,6 @@
 /**
  * @file mock-tts-server.test.js
- * @description Unit & integration tests for the Mock TTS HTTP Server (bin/mock-tts-server.js)
+ * @description Deterministic event-driven unit & integration tests for the Mock TTS HTTP Server (bin/mock-tts-server.js)
  * @author Thomas Gauthier
  * @version 1.0.0
  * @date 2026-07-26
@@ -21,8 +21,22 @@ describe('Mock TTS HTTP Server Unit Tests', () => {
       env: { ...process.env, PORT: TEST_PORT.toString(), NODE_ENV: 'test' }
     });
 
-    // Wait 250ms for server socket listening
-    await new Promise(resolve => setTimeout(resolve, 250));
+    // Deterministic event-driven readiness detection
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('Mock TTS Server startup timed out after 3000ms')), 3000);
+
+      serverProcess.stdout.on('data', chunk => {
+        if (chunk.toString().includes('Mock TTS Server listening on')) {
+          clearTimeout(timer);
+          resolve();
+        }
+      });
+
+      serverProcess.on('error', err => {
+        clearTimeout(timer);
+        reject(err);
+      });
+    });
   });
 
   after(() => {

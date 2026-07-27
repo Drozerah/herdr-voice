@@ -1,6 +1,6 @@
 /**
  * @file mock-tts-server.js
- * @description Local HTTP Mock TTS Inference Server with NODE_ENV environment awareness
+ * @description Local HTTP Mock TTS Inference Server with os.tmpdir() portability and NODE_ENV environment awareness
  * @author Thomas Gauthier
  * @version 1.0.0
  * @date 2026-07-26
@@ -10,9 +10,11 @@ import 'dotenv/config';
 import http from 'node:http';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 const PORT = process.env.PORT || 8888;
-const AUDIO_FILE = '/tmp/herdr_mock_speech.aiff';
+const AUDIO_FILE = path.join(os.tmpdir(), 'herdr_mock_speech.aiff');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 /**
