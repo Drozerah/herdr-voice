@@ -4,7 +4,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> Real-time Text-to-Speech (TTS) Voice Synthesis Plugin for the [Herdr](https://github.com/opencode-ai/herdr) Terminal Multiplexer.
+> Real-time Text-to-Speech (TTS) Voice Synthesis Plugin for the [Herdr](https://github.com/ogulcancelik/herdr) Terminal Multiplexer.
 
 ---
 
