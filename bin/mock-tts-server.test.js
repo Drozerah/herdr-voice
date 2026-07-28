@@ -6,51 +6,51 @@
  * @date 2026-07-26
  */
 
-import { test, describe, before, after } from 'node:test';
-import assert from 'node:assert/strict';
-import http from 'node:http';
-import { spawn } from 'node:child_process';
+import { test, describe, before, after } from 'node:test'
+import assert from 'node:assert/strict'
+import http from 'node:http'
+import { spawn } from 'node:child_process'
 
 describe('Mock TTS HTTP Server Unit Tests', () => {
-  let serverProcess;
-  const TEST_PORT = 8899;
+  let serverProcess
+  const TEST_PORT = 8899
 
   before(async () => {
     // Spawn server process with NODE_ENV=test
     serverProcess = spawn('node', ['bin/mock-tts-server.js'], {
       env: { ...process.env, PORT: TEST_PORT.toString(), NODE_ENV: 'test' }
-    });
+    })
 
     // Deterministic event-driven readiness detection
     await new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error('Mock TTS Server startup timed out after 3000ms')), 3000);
+      const timer = setTimeout(() => reject(new Error('Mock TTS Server startup timed out after 3000ms')), 3000)
 
       serverProcess.stdout.on('data', chunk => {
         if (chunk.toString().includes('Mock TTS Server listening on')) {
-          clearTimeout(timer);
-          resolve();
+          clearTimeout(timer)
+          resolve()
         }
-      });
+      })
 
       serverProcess.on('error', err => {
-        clearTimeout(timer);
-        reject(err);
-      });
-    });
-  });
+        clearTimeout(timer)
+        reject(err)
+      })
+    })
+  })
 
   after(() => {
     if (serverProcess) {
-      serverProcess.kill('SIGTERM');
+      serverProcess.kill('SIGTERM')
     }
-  });
+  })
 
   test('POST /v1/audio/speech returns 200 OK with valid AIFF audio stream', async () => {
     const payload = JSON.stringify({
       model: 'mlx-kokoro',
       input: 'Unit test speech inference payload',
       voice: 'Thomas'
-    });
+    })
 
     const responseBuffer = await new Promise((resolve, reject) => {
       const req = http.request(`http://127.0.0.1:${TEST_PORT}/v1/audio/speech`, {
@@ -60,31 +60,31 @@ describe('Mock TTS HTTP Server Unit Tests', () => {
           'Content-Length': Buffer.byteLength(payload)
         }
       }, res => {
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.headers['content-type'], 'audio/aiff');
+        assert.equal(res.statusCode, 200)
+        assert.equal(res.headers['content-type'], 'audio/aiff')
 
-        const chunks = [];
-        res.on('data', chunk => chunks.push(chunk));
-        res.on('end', () => resolve(Buffer.concat(chunks)));
-      });
+        const chunks = []
+        res.on('data', chunk => chunks.push(chunk))
+        res.on('end', () => resolve(Buffer.concat(chunks)))
+      })
 
-      req.on('error', reject);
-      req.write(payload);
-      req.end();
-    });
+      req.on('error', reject)
+      req.write(payload)
+      req.end()
+    })
 
-    assert.ok(responseBuffer.length > 0, 'Audio response buffer must not be empty');
-    assert.equal(responseBuffer.subarray(0, 4).toString(), 'FORM', 'AIFF header must start with FORM');
-  });
+    assert.ok(responseBuffer.length > 0, 'Audio response buffer must not be empty')
+    assert.equal(responseBuffer.subarray(0, 4).toString(), 'FORM', 'AIFF header must start with FORM')
+  })
 
   test('GET /v1/audio/speech returns 404 Not Found for non-POST requests', async () => {
     const statusCode = await new Promise((resolve, reject) => {
       const req = http.get(`http://127.0.0.1:${TEST_PORT}/v1/audio/speech`, res => {
-        resolve(res.statusCode);
-      });
-      req.on('error', reject);
-    });
+        resolve(res.statusCode)
+      })
+      req.on('error', reject)
+    })
 
-    assert.equal(statusCode, 404);
-  });
-});
+    assert.equal(statusCode, 404)
+  })
+})

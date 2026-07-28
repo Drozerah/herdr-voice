@@ -9,6 +9,7 @@ Avant toute opération Git ou de contribution, l'agent doit lire et appliquer sc
 - **Workflow Git & Stratégie de Branches :** Lire [004_ADR.md](docs/adr/004_ADR.md) (branches `master`, `dev`, `feature/*`).
 - **Procédure de Commit, Backticks, Pre-Commit & Autorisation Git :** Lire [005_ADR.md](docs/adr/005_ADR.md) (validation par `./tmp/git/git-commit-message.md`, alerte `git status`, formatage par backticks uniquement pour les fichiers `.gitignore` et symboles `os.tmpdir()`, guidage SemVer pré-commit, hook pre-commit natif et interdiction stricte de commande Git sans accord préalable explicite de l'utilisateur).
 - **SemVer, Changelog & Test de Synchronisation :** Lire [010_ADR.md](docs/adr/010_ADR.md) (`package.json` comme source de vérité, Keep a Changelog v1.1.0 et validation par `bin/version-sync.test.js`).
+- **StandardJS Code Style Specification :** Lire [013_ADR.md](docs/adr/013_ADR.md) (standard de linter/formatter `standard` obligatoire sur tout le code JS du projet).
 
 ## 🛠️ Règles de Code & Conventions
 - **Langue :** Toujours répondre en français à l'utilisateur.
