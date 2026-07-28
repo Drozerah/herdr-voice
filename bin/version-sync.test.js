@@ -2,7 +2,6 @@
  * @file version-sync.test.js
  * @description Automated Semantic Versioning (SemVer) synchronization test across package.json, herdr-plugin.toml and CHANGELOG.md
  * @author Thomas Gauthier
- * @version 1.0.0
  * @date 2026-07-27
  */
 

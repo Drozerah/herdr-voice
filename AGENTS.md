@@ -14,7 +14,7 @@ Avant toute opération Git ou de contribution, l'agent doit lire et appliquer sc
 
 ## 🛠️ Règles de Code & Conventions
 - **Langue :** Toujours répondre en français à l'utilisateur.
-- **Style Code & Documentation :** Pure JavaScript (ES Modules `import/export`), JSDoc obligatoire sur chaque fichier JS, et `CHANGELOG.md` rédigé en anglais.
+- **Style Code & Documentation :** Pure JavaScript (ES Modules `import/export`), JSDoc obligatoire sur chaque fichier JS (`@file`, `@description`, `@author`, `@date`), et `CHANGELOG.md` rédigé en anglais.
 - **Zero-Dependency Output :** Générer un bundle autonome `dist/index.js` via `esbuild`.
 - **Alerte Pre-Commit & Autorisation Git Stricte :** Toujours expliquer à l'utilisateur l'opération Git envisagée et obtenir sa confirmation explicite avant d'exécuter la moindre commande `git` dans le terminal.
 - **Guidage SemVer Pré-Commit :** Avant toute proposition de commit, l'agent IA doit évaluer l'impact des modifications selon les critères SemVer et conseiller proactivement le développeur sur l'opportunité d'un bump de version (`package.json`, `herdr-plugin.toml`, `CHANGELOG.md`).

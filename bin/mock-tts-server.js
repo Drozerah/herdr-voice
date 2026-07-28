@@ -2,7 +2,6 @@
  * @file mock-tts-server.js
  * @description Local HTTP Mock TTS Inference Server with os.tmpdir() portability and NODE_ENV environment awareness
  * @author Thomas Gauthier
- * @version 1.0.0
  * @date 2026-07-26
  */
 

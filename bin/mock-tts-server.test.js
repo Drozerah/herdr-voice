@@ -2,7 +2,6 @@
  * @file mock-tts-server.test.js
  * @description Deterministic event-driven unit & integration tests for the Mock TTS HTTP Server (bin/mock-tts-server.js)
  * @author Thomas Gauthier
- * @version 1.0.0
  * @date 2026-07-26
  */
 
