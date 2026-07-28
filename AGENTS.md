@@ -6,6 +6,7 @@ Votre rôle est de développer, tester et bundler les modules Pure JavaScript du
 
 ## 📚 Références & Gouvernance Obligatoires (ADRs)
 Avant toute opération Git ou de contribution, l'agent doit lire et appliquer scrupuleusement les actes d'architecture officiels :
+- **Politiques de Gouvernance & Cycle de Vie des ADRs :** Lire [000_ADR.md](docs/adr/000_ADR.md) (format OKF v0.2, cycle de vie `Proposed`/`Accepted`/`Superseded`/`Deprecated`, arbitrages *In Situ* vs *Superseding* et rôle de conseil proactif de l'IA).
 - **Workflow Git & Stratégie de Branches :** Lire [004_ADR.md](docs/adr/004_ADR.md) (branches `master`, `dev`, `feature/*`).
 - **Procédure de Commit, Backticks, Pre-Commit & Autorisation Git :** Lire [005_ADR.md](docs/adr/005_ADR.md) (validation par `./tmp/git/git-commit-message.md`, alerte `git status`, formatage par backticks uniquement pour les fichiers `.gitignore` et symboles `os.tmpdir()`, guidage SemVer pré-commit, hook pre-commit natif et interdiction stricte de commande Git sans accord préalable explicite de l'utilisateur).
 - **SemVer, Changelog & Test de Synchronisation :** Lire [010_ADR.md](docs/adr/010_ADR.md) (`package.json` comme source de vérité, Keep a Changelog v1.1.0 et validation par `bin/version-sync.test.js`).
@@ -17,6 +18,7 @@ Avant toute opération Git ou de contribution, l'agent doit lire et appliquer sc
 - **Zero-Dependency Output :** Générer un bundle autonome `dist/index.js` via `esbuild`.
 - **Alerte Pre-Commit & Autorisation Git Stricte :** Toujours expliquer à l'utilisateur l'opération Git envisagée et obtenir sa confirmation explicite avant d'exécuter la moindre commande `git` dans le terminal.
 - **Guidage SemVer Pré-Commit :** Avant toute proposition de commit, l'agent IA doit évaluer l'impact des modifications selon les critères SemVer et conseiller proactivement le développeur sur l'opportunité d'un bump de version (`package.json`, `herdr-plugin.toml`, `CHANGELOG.md`).
+- **Guidage Proactif du Cycle de Vie des ADRs :** Avant toute proposition de commit ou lors des revues de code, l'agent IA doit évaluer la cohérence entre le code modifié et les ADRs existants, et conseiller le développeur sur les transitions de statut (`Proposed`, `Accepted`, `Superseded by`, `Deprecated`) ou les révisions nécessaires (*In Situ* vs *Superseding*).
 - **Inviolabilité des Tests Pre-Commit :** L'agent doit s'assurer que `npm run precommit` s'exécute avec 100 % de succès (5/5 tests passés) avant toute proposition de commit.
 - **Formatage des Commits :** Tous les noms de fichiers (`package.json`) et symboles de code (`os.tmpdir()`) dans les messages de commit doivent être encadrés par des backticks uniquement (sans guillemets).
 - **Confirmation de Fichier :** Toujours demander la confirmation de l'utilisateur avant de créer ou modifier un fichier.
