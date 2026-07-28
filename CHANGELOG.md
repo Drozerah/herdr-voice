@@ -19,9 +19,11 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - GitHub Actions CI/CD Pipeline (`.github/workflows/ci.yml`) validating Node.js Active LTS `20.x` & `22.x`.
 - Official MIT License file (`LICENSE`) and Architecture Decision Record (`docs/adr/011_ADR.md`).
 - Meta-ADR `000_ADR.md` establishing ADR lifecycle governance policy, OKF v0.2 metadata spec, and AI agent proactive status guidance.
+- Rule D6 in `000_ADR.md` establishing universal relative repository paths for OKF v0.2 metadata resources.
 - Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/000_ADR.md` -> `docs/adr/013_ADR.md`).
 
 ### Fixed
 - Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.
 - Explicit test file paths in `package.json` for cross-version Node.js (18/20/22) test runner compatibility.
 - Broken repository link for parent Herdr project in `README.md` and `011_ADR.md`.
+- Converted all hardcoded local `file:///` resource paths in ADRs (`000_ADR.md` -> `013_ADR.md`) to relative repository paths for universal documentation portability.
