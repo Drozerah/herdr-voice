@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 
 ### Fixed
 - Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.
+- Explicit test file paths in `package.json` for cross-version Node.js (18/20/22) test runner compatibility.
