@@ -23,7 +23,7 @@ describe('Mock TTS HTTP Server Unit Tests', () => {
 
     // Deterministic event-driven readiness detection
     await new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error('Mock TTS Server startup timed out after 3000ms')), 3000)
+      const timer = setTimeout(() => reject(new Error('Mock TTS Server startup timed out after 10000ms')), 10000)
 
       serverProcess.stdout.on('data', chunk => {
         if (chunk.toString().includes('Mock TTS Server listening on')) {

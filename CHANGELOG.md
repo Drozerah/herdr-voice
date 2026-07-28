@@ -19,3 +19,6 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - GitHub Actions CI/CD Pipeline (`.github/workflows/ci.yml`) validating Node.js Active LTS `20.x` & `22.x`.
 - Official MIT License file (`LICENSE`) and Architecture Decision Record (`docs/adr/011_ADR.md`).
 - Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/001_ADR.md` -> `docs/adr/013_ADR.md`).
+
+### Fixed
+- Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.

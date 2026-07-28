@@ -86,7 +86,7 @@ const server = http.createServer((req, res) => {
   }
 })
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log('\n==================================================')
   logInfo(`Mock TTS Server listening on http://127.0.0.1:${PORT}`)
   logInfo(`Active endpoint: POST http://127.0.0.1:${PORT}/v1/audio/speech`)
