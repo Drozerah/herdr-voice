@@ -20,7 +20,11 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Official MIT License file (`LICENSE`) and Architecture Decision Record (`docs/adr/011_ADR.md`).
 - Meta-ADR `000_ADR.md` establishing ADR lifecycle governance policy, OKF v0.2 metadata spec, and AI agent proactive status guidance.
 - Rule D6 in `000_ADR.md` establishing universal relative repository paths for OKF v0.2 metadata resources.
-- Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/000_ADR.md` -> `docs/adr/013_ADR.md`).
+- Comprehensive Architecture Decision Records collection in Google Cloud OKF v0.2 specification (`docs/adr/000_ADR.md` -> `docs/adr/014_ADR.md`).
+- IETF JSON Schema Draft 2020-12 specification (`schemas/herdr-plugin.schema.json`) for `herdr-plugin.toml` validation and IDE auto-completion.
+- Industrial configuration loader (`src/config.js`) powered by `smol-toml` and Ajv schema validation (`ajv/dist/2020`).
+- Co-located native unit test suite (`src/config.test.js`) validating configuration schemas, fallback mechanisms, and environment overrides.
+- Dual-target centralized logger service (`src/logger.js`) for ISO console traces and Herdr Toast UI visual alerts.
 
 ### Fixed
 - Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.

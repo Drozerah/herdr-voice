@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Drozerah/herdr-voice/schemas/herdr-plugin.schema.json",
+  "title": "HerdrVoicePluginConfig",
+  "description": "Schéma de validation IETF JSON Schema Draft 2020-12 pour le fichier de configuration herdr-plugin.toml",
+  "type": "object",
+  "required": ["plugin", "server", "audio"],
+  "properties": {
+    "plugin": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-zA-Z0-9.]+)?$"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Interrupteur principal Master Toggle (true = actif, false = désactivé)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "server": {
+      "type": "object",
+      "required": ["endpoint", "model", "voice", "speed", "response_format"],
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://.+"
+        },
+        "api_key": {
+          "type": "string",
+          "default": ""
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "voice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speed": {
+          "type": "number",
+          "minimum": 0.25,
+          "maximum": 4.0,
+          "default": 1.0
+        },
+        "response_format": {
+          "type": "string",
+          "enum": ["aiff", "pcm", "mp3", "opus", "aac", "flac"],
+          "default": "aiff"
+        },
+        "max_input_length": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 50000,
+          "default": 1000,
+          "description": "Limite maximale de caractères par inférence pour éviter l'emballement d'agents IA"
+        },
+        "max_requests_per_minute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "default": 10,
+          "description": "Disjoncteur automatique en cas de boucles d'inférence excessives"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audio": {
+      "type": "object",
+      "required": ["sample_rate", "channels", "high_water_mark"],
+      "properties": {
+        "sample_rate": {
+          "type": "integer",
+          "minimum": 8000,
+          "maximum": 192000,
+          "default": 24000
+        },
+        "channels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "default": 1
+        },
+        "high_water_mark": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 1048576,
+          "default": 16384,
+          "description": "Limite de contre-pression RAM en octets pour le lecteur @audio/speaker"
+        }
+      },
+      "additionalProperties": false
+    },
+    "extra_headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "En-têtes HTTP personnalisés supplémentaires pour les serveurs tiers"
+    },
+    "extra_body": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Paramètres JSON personnalisés supplémentaires (Standard OpenAI SDK extra_body)"
+    }
+  },
+  "additionalProperties": false
+}

@@ -19,3 +19,14 @@ Features, public interfaces, and architecture choices are subject to change befo
 ## 📌 Project Overview
 
 `herdr-voice` aims to bring real-time audio feedback to AI coding agents operating within Herdr panes.
+
+---
+
+## ⚠️ Disclaimer & API Usage Responsibility
+
+- **API Costs & Quotas:** `herdr-voice` interacts with local or cloud-based Text-to-Speech (TTS) inference endpoints. Users are solely responsible for managing their API credentials, rate limits, and third-party cloud service costs (e.g., OpenAI API, ElevenLabs, Azure Speech).
+- **Built-in Safety Guardrails:** To protect users against runaway AI agents or infinite loops, the plugin enforces configurable safety guardrails in `herdr-plugin.toml`:
+  - `max_input_length`: Automatically truncates oversized text payloads (default: 1000 characters).
+  - `max_requests_per_minute`: Automatic circuit breaker suspending inference if request limits are exceeded (default: 10 req/min).
+- **AS IS Warranty:** This software is provided under the MIT License "AS IS", without warranty of any kind. Authors and contributors accept no liability for third-party inference charges or agent behavior.
+
