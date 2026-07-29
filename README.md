@@ -1,6 +1,7 @@
 # Herdr Voice Plugin
 
 [![CI](https://github.com/Drozerah/herdr-voice/actions/workflows/ci.yml/badge.svg)](https://github.com/Drozerah/herdr-voice/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-97.2%25-brightgreen.svg)](#)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 

@@ -12,6 +12,7 @@ Avant toute opération Git ou de contribution, l'agent doit lire et appliquer sc
 - **SemVer, Changelog & Test de Synchronisation :** Lire [010_ADR.md](docs/adr/010_ADR.md) (`package.json` comme source de vérité, Keep a Changelog v1.1.0 et validation par `bin/version-sync.test.js`).
 - **StandardJS Code Style Specification :** Lire [013_ADR.md](docs/adr/013_ADR.md) (standard de linter/formatter `standard` obligatoire sur tout le code JS du projet).
 - **Normalisation de la Configuration & JSON Schema :** Lire [014_ADR.md](docs/adr/014_ADR.md) (standard IETF JSON Schema Draft 2020-12, validation Ajv de herdr-plugin.toml et intégration Toast UI).
+- **Mesure de Couverture de Code & Rapports Istanbul :** Lire [015_ADR.md](docs/adr/015_ADR.md) (moteur V8 natif c8, commande npm run coverage et visualisation HTML interactif).
 
 ## 🛠️ Règles de Code & Conventions
 - **Langue :** Toujours répondre en français à l'utilisateur.

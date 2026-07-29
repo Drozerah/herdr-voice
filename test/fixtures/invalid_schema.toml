@@ -1,0 +1,8 @@
+# Negative test fixture: Syntax-valid TOML rejected by IETF JSON Schema validation
+[plugin]
+name = "herdr-voice"
+version = "1.0.0-alpha.1"
+
+[server]
+endpoint = "invalid-url-string"
+speed = -5.0

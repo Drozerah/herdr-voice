@@ -1,0 +1,2 @@
+# Negative test fixture: Intentionally corrupted TOML syntax
+[[[invalid toml syntax === 123 (((

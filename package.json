@@ -15,6 +15,7 @@
     "dev": "NODE_ENV=development esbuild src/index.js --bundle --platform=node --target=node18 --outfile=dist/index.js --watch",
     "build": "NODE_ENV=production esbuild src/index.js --bundle --platform=node --target=node18 --minify --outfile=dist/index.js",
     "test": "NODE_ENV=test node --test src/index.test.js src/config.test.js src/logger.test.js bin/mock-tts-server.test.js bin/version-sync.test.js",
+    "coverage": "c8 --reporter=text --reporter=html npm test",
     "lint": "standard",
     "lint:fix": "standard --fix",
     "mock-tts": "NODE_ENV=development nodemon bin/mock-tts-server.js"
@@ -22,7 +23,8 @@
   "standard": {
     "ignore": [
       "dist/**",
-      "tmp/**"
+      "tmp/**",
+      "coverage/**"
     ]
   },
   "keywords": [
@@ -35,6 +37,7 @@
   "author": "Thomas Gauthier",
   "license": "MIT",
   "devDependencies": {
+    "c8": "^12.0.0",
     "esbuild": "^0.25.0",
     "nodemon": "^3.1.9",
     "standard": "^17.1.2"

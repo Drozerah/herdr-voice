@@ -9,7 +9,8 @@ dist/
 # Temporary files & work directories
 tmp/
 temp/
-ù
+coverage/
+
 # OS & System logs
 .DS_Store
 *.log

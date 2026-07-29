@@ -25,6 +25,12 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Industrial configuration loader (`src/config.js`) powered by `smol-toml` and Ajv schema validation (`ajv/dist/2020`).
 - Co-located native unit test suite (`src/config.test.js`) validating configuration schemas, fallback mechanisms, and environment overrides.
 - Dual-target centralized logger service (`src/logger.js`) for ISO console traces and Herdr Toast UI visual alerts.
+- Short-Circuit Evaluation in plugin entry point (`src/index.js`) for zero resource consumption when disabled (`enabled = false`).
+- V8-native code coverage engine integration (`c8`) reaching 97.2% test coverage (`npm run coverage`).
+- Interactive Istanbul HTML code coverage report generation in `./coverage/index.html`.
+- Dedicated static test fixtures directory (`test/fixtures/`) for readable and isolated TOML test cases.
+- Architecture Decision Record `docs/adr/015_ADR.md` establishing code coverage measurement, static fixtures, and Release Workflow.
+- Certified 97.2% code coverage badge in `README.md`.
 
 ### Fixed
 - Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.
