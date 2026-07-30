@@ -1,7 +1,7 @@
 # Herdr Voice Plugin
 
 [![CI](https://github.com/Drozerah/herdr-voice/actions/workflows/ci.yml/badge.svg)](https://github.com/Drozerah/herdr-voice/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-97.2%25-brightgreen.svg)](#)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](#)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,6 +20,25 @@ Features, public interfaces, and architecture choices are subject to change befo
 ## 📌 Project Overview
 
 `herdr-voice` aims to bring real-time audio feedback to AI coding agents operating within Herdr panes.
+
+---
+
+## 🛡️ Security & Guardrails
+
+`herdr-voice` implements a multi-layered security and cost-protection architecture to ensure zero credential leakage and protect developers against financial inflation (*Financial Denial of Wallet*):
+
+1. **🔒 Zero-Leak Credential Redaction ([016_ADR](docs/adr/016_ADR.md)):**
+   - Automated sanitization service (`src/security.js`) intercepting and redacting sensitive API keys (`api_key`), Bearer tokens, and OpenAI/ElevenLabs keys (`sk-...`) before any log emission to system console or Herdr Toast UI alerts (`[REDACTED]`).
+2. **🤫 Zero-Disk Audio Persistence & In-Memory Streaming:**
+   - Audio payloads are processed strictly in RAM and streamed directly to `@audio/speaker`. Zero audio files (MP3, WAV, AIFF) are persisted to disk or temporary cache folders (`tmp/`), ensuring total confidentiality of synthesized agent communications.
+3. **⚡ RAM/CPU Resource Capping & Short-Circuit Evaluation ([014_ADR](docs/adr/014_ADR.md)):**
+   - Backpressure-managed RAM buffer capped at 16 KB (`high_water_mark` = 16384).
+   - Immediate zero-resource return at entry point (`src/index.js`) when disabled (`enabled = false`), guaranteeing 0% RAM allocation and zero background network requests.
+4. **🛑 Rate Limiting & Financial Guardrails:**
+   - **Payload Truncation (`max_input_length` = 1000):** Automatic input clipping with trailing ellipses (`...`) to prevent token over-consumption on long agent outputs.
+   - **Circuit Breaker (`max_requests_per_minute` = 10):** Automatic rate limiter suspending audio inference if an AI agent enters a runaway loop.
+5. **🌐 Local Network Security & Unencrypted LAN Warnings:**
+   - Automated detection of unencrypted HTTP endpoints on private local network IPs (`192.168.x.x`, `10.x.x.x`, `172.16.x.x`). Emits visual Herdr Toast UI and console security warnings (`[WARN]`) advising users to enforce HTTPS/TLS or verify local Wi-Fi/LAN trust.
 
 ---
 

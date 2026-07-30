@@ -1,0 +1,20 @@
+# Security test fixture: Unencrypted HTTP endpoint on private LAN IP
+[plugin]
+name = "herdr-voice"
+version = "1.0.0-alpha.1"
+enabled = true
+
+[server]
+endpoint = "http://192.168.1.50:8888/v1/audio/speech"
+api_key = "test-key"
+model = "mlx-kokoro"
+voice = "Thomas"
+speed = 1.0
+response_format = "aiff"
+max_input_length = 1000
+max_requests_per_minute = 10
+
+[audio]
+sample_rate = 24000
+channels = 1
+high_water_mark = 16384

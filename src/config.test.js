@@ -103,3 +103,71 @@ test('src/config.js - loadConfig rejects invalid schema TOML fixture', () => {
   assert.equal(result.isValid, false)
   assert.ok(result.errors.length > 0)
 })
+
+test('src/config.js - loadConfig detects unencrypted LAN IP endpoint fixture and issues security warning', () => {
+  const lanFixturePath = path.join(FIXTURES_DIR, 'lan_http_config.toml')
+  const result = loadConfig(lanFixturePath)
+
+  assert.equal(result.isValid, true)
+  assert.equal(result.config.server.endpoint, 'http://192.168.1.50:8888/v1/audio/speech')
+})
+
+test('src/config.js - validateConfig handles non-object primitives and null rawConfig gracefully', () => {
+  const resultNull = validateConfig(null)
+  assert.equal(resultNull.isValid, false)
+  assert.equal(resultNull.errors[0], 'Configuration object is null, undefined, or not an object.')
+
+  const resultString = validateConfig('not-an-object')
+  assert.equal(resultString.isValid, false)
+  assert.equal(resultString.errors[0], 'Configuration object is null, undefined, or not an object.')
+
+  const resultNumber = validateConfig(12345)
+  assert.equal(resultNumber.isValid, false)
+})
+
+test('src/config.js - loadConfig handles env var overrides on partial TOML missing plugin and server sections', () => {
+  process.env.HERDR_VOICE_ENABLED = 'true'
+  process.env.HERDR_TTS_ENDPOINT = 'http://127.0.0.1:8998/v1/audio/speech'
+
+  const partialFixturePath = path.join(FIXTURES_DIR, 'partial_config.toml')
+  const result = loadConfig(partialFixturePath)
+
+  assert.equal(result.isValid, false)
+  assert.ok(result.config.plugin.enabled)
+  assert.equal(result.config.server.endpoint, 'http://127.0.0.1:8998/v1/audio/speech')
+
+  delete process.env.HERDR_VOICE_ENABLED
+  delete process.env.HERDR_TTS_ENDPOINT
+})
+
+test('src/config.js - loadConfig handles HERDR_TTS_API_KEY, HERDR_TTS_VOICE, and HERDR_SUPPRESS_LAN_WARNING fallbacks when server section is missing', () => {
+  const partialFixturePath = path.join(FIXTURES_DIR, 'partial_config.toml')
+
+  process.env.HERDR_TTS_API_KEY = 'isolated-key'
+  const res1 = loadConfig(partialFixturePath)
+  assert.equal(res1.config.server.api_key, 'isolated-key')
+  delete process.env.HERDR_TTS_API_KEY
+
+  process.env.HERDR_TTS_VOICE = 'isolated-voice'
+  const res2 = loadConfig(partialFixturePath)
+  assert.equal(res2.config.server.voice, 'isolated-voice')
+  delete process.env.HERDR_TTS_VOICE
+
+  process.env.HERDR_SUPPRESS_LAN_WARNING = 'true'
+  const res3 = loadConfig(partialFixturePath)
+  assert.equal(res3.config.server.suppress_lan_warning, true)
+  delete process.env.HERDR_SUPPRESS_LAN_WARNING
+})
+
+test('src/config.js - loadConfig parses suppress_lan_warning_config.toml fixture and respects env override', () => {
+  const fixturePath = path.join(FIXTURES_DIR, 'suppress_lan_warning_config.toml')
+  const result = loadConfig(fixturePath)
+
+  assert.equal(result.isValid, true)
+  assert.equal(result.config.server.suppress_lan_warning, true)
+
+  process.env.HERDR_SUPPRESS_LAN_WARNING = '1'
+  const resultEnv = loadConfig(fixturePath)
+  assert.equal(resultEnv.config.server.suppress_lan_warning, true)
+  delete process.env.HERDR_SUPPRESS_LAN_WARNING
+})

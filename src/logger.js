@@ -5,6 +5,8 @@
  * @date 2026-07-29
  */
 
+import { sanitizeLogMessage } from './security.js'
+
 /**
  * Format ISO timestamp string (HH:MM:SS)
  * @returns {string} Timestamp string
@@ -19,8 +21,9 @@ function getTimestamp () {
  * @param {'info'|'warn'|'error'|'success'} [type='info'] - Notification alert level
  */
 export function showToast (message, type = 'info') {
+  const cleanMessage = sanitizeLogMessage(message)
   if (typeof globalThis.herdr?.ui?.toast === 'function') {
-    globalThis.herdr.ui.toast(message, type)
+    globalThis.herdr.ui.toast(cleanMessage, type)
   }
 }
 
@@ -30,10 +33,11 @@ export function showToast (message, type = 'info') {
  * @param {boolean} [notifyToast=false] - Whether to also emit a Toast UI notification
  */
 export function logInfo (message, notifyToast = false) {
-  const formatted = `[${getTimestamp()}] 🔊 [HERDR-VOICE] [INFO] ${message}`
+  const cleanMessage = sanitizeLogMessage(message)
+  const formatted = `[${getTimestamp()}] 🔊 [HERDR-VOICE] [INFO] ${cleanMessage}`
   console.log(formatted)
   if (notifyToast) {
-    showToast(message, 'info')
+    showToast(cleanMessage, 'info')
   }
 }
 
@@ -43,10 +47,11 @@ export function logInfo (message, notifyToast = false) {
  * @param {boolean} [notifyToast=true] - Whether to also emit a Toast UI warning
  */
 export function logWarn (message, notifyToast = true) {
-  const formatted = `[${getTimestamp()}] ⚠️ [HERDR-VOICE] [WARN] ${message}`
+  const cleanMessage = sanitizeLogMessage(message)
+  const formatted = `[${getTimestamp()}] ⚠️ [HERDR-VOICE] [WARN] ${cleanMessage}`
   console.warn(formatted)
   if (notifyToast) {
-    showToast(message, 'warn')
+    showToast(cleanMessage, 'warn')
   }
 }
 
@@ -56,9 +61,10 @@ export function logWarn (message, notifyToast = true) {
  * @param {boolean} [notifyToast=true] - Whether to also emit a Toast UI error
  */
 export function logError (message, notifyToast = true) {
-  const formatted = `[${getTimestamp()}] ❌ [HERDR-VOICE] [ERROR] ${message}`
+  const cleanMessage = sanitizeLogMessage(message)
+  const formatted = `[${getTimestamp()}] ❌ [HERDR-VOICE] [ERROR] ${cleanMessage}`
   console.error(formatted)
   if (notifyToast) {
-    showToast(message, 'error')
+    showToast(cleanMessage, 'error')
   }
 }

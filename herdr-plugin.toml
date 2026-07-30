@@ -1,34 +1,35 @@
 # ==============================================================================
-# Fichier de Configuration Déclaratif : herdr-plugin.toml
-# Schéma IETF JSON Schema : schemas/herdr-plugin.schema.json
+# Declarative Configuration File: herdr-plugin.toml
+# Validated against IETF JSON Schema (Draft 2020-12): schemas/herdr-plugin.schema.json
 # ==============================================================================
 
 [plugin]
-name = "herdr-voice"
-version = "1.0.0-alpha.1"
-enabled = true # Interrupteur principal (true = actif, false = désactivé sans désinstaller)
+name = "herdr-voice" # Plugin name identifier
+version = "1.0.0-alpha.1" # Plugin SemVer version string
+enabled = true # Master toggle switch (true = active, false = disabled without uninstalling)
 
 [server]
-endpoint = "http://127.0.0.1:8888/v1/audio/speech"
-api_key = "" # Renseigner votre clé d'API si vous utilisez un service tiers sécurisé (ex: sk-...)
-model = "mlx-kokoro"
-voice = "Thomas"
-speed = 1.0 # Vitesse d'élocution (0.25 à 4.0)
-response_format = "aiff" # Format audio binaire (aiff, pcm, mp3, opus, aac, flac)
+endpoint = "http://127.0.0.1:8888/v1/audio/speech" # Target TTS inference server endpoint URL
+api_key = "" # API authorization key for secured endpoints (e.g. sk-...)
+model = "mlx-kokoro" # TTS model identifier (e.g., mlx-kokoro, tts-1, tts-1-hd)
+voice = "Thomas" # Speaker voice identifier (e.g., Thomas, alloy, echo, fable)
+speed = 1.0 # Speech speed playback rate multiplier (range: 0.25 to 4.0, default: 1.0)
+response_format = "aiff" # Binary audio output stream format (aiff, pcm, mp3, opus, aac, flac)
 
-# Gardes-fous de Sécurité & Protection contre l'emballement des agents IA
-max_input_length = 1000 # Caractères max par inférence (évite les factures et la surchauffe)
-max_requests_per_minute = 10 # Disjoncteur automatique contre les boucles d'inférence infinies
+# Security Guardrails & AI Agent Financial DoW Protection
+max_input_length = 1000 # Maximum characters per TTS inference payload to prevent token runaway (range: 50 to 50000)
+max_requests_per_minute = 10 # Automatic circuit breaker limiting maximum requests per minute (range: 1 to 120)
+# suppress_lan_warning = false # Set to true to suppress visual Toast UI security alerts for unencrypted LAN HTTP endpoints
 
 [audio]
-sample_rate = 24000 # Fréquence d'échantillonnage 24 kHz (Kokoro-82M)
-channels = 1 # 1 = Mono, 2 = Stéréo
-high_water_mark = 16384 # Limite de contre-pression RAM en octets (16 KB) pour @audio/speaker
+sample_rate = 24000 # Audio sampling rate frequency in Hz (e.g., 24000 Hz for Kokoro-82M)
+channels = 1 # Number of audio channels (1 = Mono, 2 = Stereo, range: 1 to 8)
+high_water_mark = 16384 # RAM backpressure limit in bytes (16 KB) for @audio/speaker playback
 
-# En-têtes HTTP personnalisés supplémentaires pour serveurs d'inférence tiers
+# Custom HTTP headers for third-party inference servers
 [extra_headers]
-# "OpenAI-Organization" = "org-123456789"
+# "OpenAI-Organization" = "org-123456789" # Custom header key-value pair example
 
-# Paramètres JSON supplémentaires pour serveurs d'inférence tiers (Standard OpenAI SDK extra_body)
+# Custom JSON parameters for third-party inference servers (Standard OpenAI SDK extra_body)
 [extra_body]
-# stability = 0.75
+# stability = 0.75 # Custom JSON body field override example

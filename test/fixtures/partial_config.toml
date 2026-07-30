@@ -1,0 +1,2 @@
+# Test fixture: Completely empty TOML file
+# Used to test environment variable fallback branches for both plugin and server (|| {})

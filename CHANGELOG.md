@@ -29,8 +29,13 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - V8-native code coverage engine integration (`c8`) reaching 97.2% test coverage (`npm run coverage`).
 - Interactive Istanbul HTML code coverage report generation in `./coverage/index.html`.
 - Dedicated static test fixtures directory (`test/fixtures/`) for readable and isolated TOML test cases.
+- Dedicated security module (`src/security.js`) and unit test suite (`src/security.test.js`) redacting API keys and Bearer tokens.
 - Architecture Decision Record `docs/adr/015_ADR.md` establishing code coverage measurement, static fixtures, and Release Workflow.
-- Certified 97.2% code coverage badge in `README.md`.
+- Architecture Decision Record `docs/adr/016_ADR.md` establishing dedicated security module, automated secret redaction, and Zero-Leak Policy.
+- Architecture Decision Record `docs/adr/017_ADR.md` establishing 6 mandatory transit security pillars and LAN HTTP endpoint warnings.
+- Automated unencrypted LAN HTTP security warning check (`checkEndpointSecurity`) and user acknowledgment control (`suppress_lan_warning`).
+- Achieved absolute 100% test code coverage across all V8 metrics (Statements, Lines, Functions, Branches) with 29 passing unit tests.
+- Certified 100% code coverage badge in `README.md`.
 
 ### Fixed
 - Explicit IPv4 host binding (`127.0.0.1`) and extended CI startup timeout for Linux runners in mock TTS server.

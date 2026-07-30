@@ -11,6 +11,7 @@ import { parse } from 'smol-toml'
 import Ajv2020 from 'ajv/dist/2020.js'
 import addFormats from 'ajv-formats'
 import { logInfo, logWarn, logError } from './logger.js'
+import { checkEndpointSecurity } from './security.js'
 
 let validateFn = null
 
@@ -98,6 +99,10 @@ export function loadConfig (customConfigPath, customSchemaPath) {
       parsedToml.server = parsedToml.server || {}
       parsedToml.server.voice = process.env.HERDR_TTS_VOICE
     }
+    if (process.env.HERDR_SUPPRESS_LAN_WARNING !== undefined) {
+      parsedToml.server = parsedToml.server || {}
+      parsedToml.server.suppress_lan_warning = process.env.HERDR_SUPPRESS_LAN_WARNING === 'true' || process.env.HERDR_SUPPRESS_LAN_WARNING === '1'
+    }
 
     const result = validateConfig(parsedToml, customSchemaPath)
 
@@ -106,6 +111,12 @@ export function loadConfig (customConfigPath, customSchemaPath) {
         logError(errMsg, true)
       }
       return result
+    }
+
+    const lanSecurityWarning = checkEndpointSecurity(result.config?.server?.endpoint)
+    if (lanSecurityWarning) {
+      const emitToast = result.config.server?.suppress_lan_warning !== true
+      logWarn(lanSecurityWarning, emitToast)
     }
 
     logInfo(`Configuration loaded and validated successfully against IETF JSON Schema (enabled=${result.config.plugin.enabled}).`)
